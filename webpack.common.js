@@ -1,5 +1,4 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const path = require("path");
@@ -11,7 +10,6 @@ module.exports = {
   },
   entry: {
     app: "./index.tsx",
-    appStyles: ["./styles.scss"],
   },
   output: {
     filename: "[name].[chunkhash].js",
@@ -33,35 +31,13 @@ module.exports = {
         test: /\.(png|jpg)$/,
         type: "asset/resource",
       },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: {
-              modules: {
-                exportLocalsConvention: "camelCase",
-                localIdentName: "[path][name]__[local]--[hash:base64:5]",
-                localIdentContext: path.resolve(__dirname, "src"),
-              },
-            },
-          },
-          "sass-loader",
-        ],
-      },
     ],
   },
-
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",
       filename: "index.html",
       scriptLoading: "blocking",
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].[chunkhash].css",
     }),
     new CleanWebpackPlugin(),
   ],
