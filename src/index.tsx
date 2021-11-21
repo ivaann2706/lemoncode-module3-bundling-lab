@@ -6,8 +6,10 @@ import { getRandomName } from "./generateRandomName";
 import "./styles.scss";
 import logoImg from "./img/logo_1.png";
 
-const message = `My name is ${getRandomName()}`;
+const mode = process.env.MODE;
+document.write(`<p>Mode: ${mode}</p>`);
 
+const message = `My name is ${getRandomName()}`;
 document.write(message);
 
 const img = document.createElement("img");
